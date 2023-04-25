@@ -1,0 +1,60 @@
+---
+import { LinkTxtProps } from "../links/LinkTxt.astro";
+import { SvgProps } from "../svgs/Svg.astro";
+import Svg from "../svgs/Svg.astro";
+
+export interface IconLinkProps {
+  twClass: string;
+  twTitleLeft: boolean;
+  twLinkAndSvgs: LinkAndSvg[];
+}
+
+interface LinkAndSvg {
+  link: LinkTxtProps;
+  svgAttrs: SvgProps;
+}
+
+const props = Astro.props as IconLinkProps;
+
+function buildComponent() {}
+---
+
+<url role="list" class={props.twClass}>
+  {
+    props.twLinkAndSvgs.map((linkAndSvg) => {
+      let svg = (
+        <Svg
+          twClass={linkAndSvg.svgAttrs.twClass}
+          twFill={linkAndSvg.svgAttrs.twFill}
+          twViewBox={linkAndSvg.svgAttrs.twViewBox}
+          twStrokeWidth={linkAndSvg.svgAttrs.twStrokeWidth}
+          twStroke={linkAndSvg.svgAttrs.twStroke}
+          twAriaHidden={linkAndSvg.svgAttrs.twAriaHidden}
+          twStrokeLinecap={linkAndSvg.svgAttrs.twStrokeLinecap}
+          twStrokeLinejoin={linkAndSvg.svgAttrs.twStrokeLinejoin}
+          twD={linkAndSvg.svgAttrs.twD}
+        />
+      );
+
+      if (props.twTitleLeft == true) {
+        return (
+          <li>
+            <a href={linkAndSvg.link.twHref} class={linkAndSvg.link.twClass}>
+              {linkAndSvg.link.twLinkName}
+              {svg}
+            </a>
+          </li>
+        );
+      } else {
+        return (
+          <li>
+            <a href={linkAndSvg.link.twHref} class={linkAndSvg.link.twClass}>
+              {svg}
+              {linkAndSvg.link.twLinkName}
+            </a>
+          </li>
+        );
+      }
+    })
+  }
+</url>

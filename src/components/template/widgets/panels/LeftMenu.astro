@@ -1,0 +1,192 @@
+---
+import LinkTxt from "../links/LinkTxt.astro";
+import IconLink, { IconLinkProps } from "../lists/IconLink.astro";
+import { IconLinkByTypeProps } from "../lists/IconLinkByType.astro";
+import Svg from "../svgs/Svg.astro";
+import CompC from "../../../solidjs/CompC";
+import ThreeColumns from "../../layouts/threeColumns.astro";
+export interface LeftMenuProps {
+  twClass: string;
+  twName: string;
+  twIconLink: IconLinkProps | IconLinkByTypeProps;
+}
+
+const transitToOpacityCls =
+  "transition-opacity ease-linear duration-300 opacity-0";
+const transitToNonOpacityCls =
+  "transition-opacity ease-linear duration-300 opacity-100";
+const leftMenuProps = JSON.parse(
+  `{
+    "twClass": "xx",
+    "twName": "",
+    "twIconLink": {
+      "twClass": "-mx-2 space-y-1 flex flex-1 flex-col list-none",
+      "twTitleLeft": "false",
+      "twLinkAndSvgs": [
+        {
+          "link": {
+            "twHref": "#",
+            "twClass": "text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
+            "twLinkName": "projects"
+          },
+          "svgAttrs": {
+            "twClass": "h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600",
+            "twFill": "none",
+            "twViewBox": "0 0 24 24",
+            "twStrokeWidth": "1.5",
+            "twStroke": "currentColor",
+            "twAriaHidden": true,
+            "twStrokeLinecap": "round",
+            "twStrokeLinejoin": "round",
+            "twD": "M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+          }
+        }
+      ]
+    }
+  }`
+) as LeftMenuProps;
+---
+
+<div class={leftMenuProps.twClass}>
+  <!-- 当屏幕过小时, 菜单栏变成置顶 -->
+  <div
+    class="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden"
+  >
+    <button
+      id="@leftMenu-burger-button"
+      type="button"
+      class="left-menu-burger-button -m-2.5 p-2.5 text-gray-700"
+    >
+      <span class="sr-only">打开导航栏</span>
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+      </svg>
+    </button>
+
+    <div class="flex-1 text-sm font-semibold leading-6 text-gray-900">
+      Dashboard
+    </div>
+
+    <a href="#">
+      <span class="sr-only">Your profile</span>
+      <img
+        class="h-8 w-8 rounded-full bg-gray-50"
+        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        alt=""
+      />
+    </a>
+  </div>
+
+  <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+  <div class="flex relative z-50" role="dialog" aria-modal="true">
+    <div id="@leftMenu-sidebar-background" class=""></div>
+    <div id="@leftMenu-dialog" class="">
+      <div
+        id="@leftMenu-sidebar-panel"
+        class="relative flex w-full max-w-xs flex-1 transition ease-in-out duration-300 transform -translate-x-full lg:translate-x-0 lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col"
+      >
+        <!-- Sidebar component, swap this element with another sidebar if you like -->
+        <div
+          id="@leftMenu-sidebar"
+          class="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2 lg:border-r lg:border-gray-200"
+        >
+          <div class="resize flex h-16 shrink-0 items-center">
+            <img
+              class="h-8 w-auto"
+              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              alt="Your Company"
+            />
+          </div>
+          <nav class="flex flex-1 flex-col">
+            <IconLink {...leftMenuProps.twIconLink} />
+          </nav>
+        </div>
+        <div
+          class="absolute left-full top-0 flex w-16 justify-center pt-5 lg:hidden"
+        >
+          <button type="button" class="-m-2.5 p-2.5 off-canvas">
+            <span class="sr-only">Close sidebar</span>
+            <svg
+              class="h-6 w-6 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex abolute">
+    <ThreeColumns />
+  </div>
+</div>
+
+<script>
+  var mobileMenuOpened = false;
+  const menuBurgerButton = document.getElementById("@leftMenu-burger-button");
+  const sidebarPanel = document.getElementById("@leftMenu-sidebar-panel");
+  const dialog = document.getElementById("@leftMenu-dialog");
+  const sidebarBackground = document.getElementById(
+    "@leftMenu-sidebar-background"
+  );
+
+  dialog.addEventListener("click", function (event: MouseEvent) {
+    let clickYPos = event.clientX;
+    let sideBarRightPos = sidebarPanel.offsetLeft + sidebarPanel.offsetWidth;
+
+    if (clickYPos > sideBarRightPos) {
+      mobileMenuOpened = openOrCloseSideBar(mobileMenuOpened);
+    }
+
+    console.log(
+      "click on y axis: " + clickYPos + ", sideBarRightPos: " + sideBarRightPos
+    );
+  });
+
+  menuBurgerButton.addEventListener("click", function () {
+    console.log("a click is detected!");
+    mobileMenuOpened = openOrCloseSideBar(mobileMenuOpened);
+  });
+
+  function openOrCloseSideBar(menuOpened) {
+    if (menuOpened == true) {
+      // 关闭菜单
+      dialog.className = "";
+      sidebarPanel.className = sidebarPanel.className.replace(
+        "translate-x-0",
+        "-translate-x-full"
+      );
+      sidebarBackground.className = "";
+      console.log(sidebarPanel.className);
+      return false;
+    } else {
+      // 打开菜单
+      dialog.className = "fixed inset-0 flex";
+      sidebarPanel.className = sidebarPanel.className.replace(
+        "-translate-x-full",
+        "translate-x-0"
+      );
+      sidebarBackground.className = "fixed inset-0 bg-gray-900/80 lg:hidden";
+      console.log(sidebarPanel.className);
+      return true;
+    }
+  }
+</script>

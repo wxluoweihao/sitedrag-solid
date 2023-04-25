@@ -1,0 +1,24 @@
+---
+import { AstroInstance } from "astro";
+
+const componentFiles = await Astro.glob("../components/**/*.astro");
+let templates = new Map<string, AstroInstance>();
+componentFiles.forEach((fileObj) => {
+  let componentFilePath = fileObj.file;
+  let fileName = fileObj.default.name;
+  console.log("file_name: " + fileName);
+  console.log("file_url: " + componentFilePath);
+  import(componentFilePath);
+  templates.set(componentFilePath, fileObj);
+});
+---
+
+<div>
+  <p>
+    {
+      componentFiles.map((component) => {
+        return component.file;
+      })
+    }
+  </p>
+</div>

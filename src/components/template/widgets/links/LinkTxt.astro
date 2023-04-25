@@ -1,0 +1,13 @@
+---
+export interface LinkTxtProps {
+  twHref: string;
+  twClass: string;
+  twLinkName: String;
+}
+
+const props = Astro.props as LinkTxtProps;
+---
+
+<a href={props.twHref} class={props.twClass}>
+  {props.twLinkName}
+</a>

@@ -1,0 +1,38 @@
+---
+// export interface BuilderRightProps {
+//   twClass: string;
+//   twName: string;
+//   twIconLink: IconLinkProps | IconLinkByTypeProps;
+// }
+
+// const props = Astro.props as BuilderRightProps;
+---
+
+<nav class="" aria-label="Directory">
+  <div class="relative">
+    <div
+      class="grid grid-cols-2 sticky top-0 z-10 border-y border-b-gray-200 border-t-gray-100 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900"
+    >
+      <div class="col-span-1"><h3>A</h3></div>
+      <div class="col-span-1 place-self-end">
+        <svg width="24" height="24" viewBox="0 0 24 24"
+          ><path fill="black" d="m7 10l5 5l5-5z"></path></svg
+        >
+      </div>
+      <div class="hidden">
+        <svg width="24" height="24" viewBox="0 0 24 24"
+          ><path fill="black" d="M10 17V7l5 5l-5 5Z"></path></svg
+        >
+      </div>
+    </div>
+    <p>this is a test</p>
+  </div>
+  <div class="relative">
+    <div
+      class="sticky top-0 z-10 border-y border-b-gray-200 border-t-gray-100 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900"
+    >
+      <h3>B</h3>
+    </div>
+    <p>this is a test</p>
+  </div>
+</nav>

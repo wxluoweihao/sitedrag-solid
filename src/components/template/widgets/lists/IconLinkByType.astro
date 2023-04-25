@@ -1,0 +1,24 @@
+---
+import { LinkTxtProps } from "../links/LinkTxt.astro";
+import { SvgProps } from "../svgs/Svg.astro";
+import IconLink, { IconLinkProps } from "../lists/IconLink.astro";
+import Svg from "../svgs/Svg.astro";
+
+export interface IconLinkByTypeProps {
+  twClass: string;
+  twName: string;
+  twIconLinkProps: IconLinkProps;
+}
+
+const props = Astro.props as IconLinkByTypeProps;
+---
+
+<div class={props.twClass}>
+  <h2>{props.twName}</h2>
+  <IconLink
+    selectCssCls={props.twIconLinkProps.twSelectCssCls}
+    unselectCssCls={props.twIconLinkProps.twUnselectCssCls}
+    titleLeft={props.twIconLinkProps.twTitleLeft}
+    linkAndSvgs={props.twIconLinkProps.twLinkAndSvgs}
+  />
+</div>

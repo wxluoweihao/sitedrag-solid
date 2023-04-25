@@ -1,0 +1,35 @@
+---
+export interface SvgProps {
+  id: string;
+  class: string;
+  fill: string;
+  width: string;
+  height: string;
+  viewBox: string;
+  strokeWidth: string;
+  stroke: string;
+  ariaHidden: boolean;
+  strokeLinecap: "butt" | "round" | "square" | "inherit" | undefined | null;
+  strokeLinejoin: "miter" | "round" | "bevel" | "inherit" | undefined | null;
+  d: string;
+}
+
+const props = Astro.props as SvgProps;
+---
+
+<svg
+  id={props.id}
+  class={props.class}
+  fill={props.fill}
+  viewBox={props.viewBox}
+  stroke-width={props.strokeWidth}
+  stroke={props.stroke}
+  aria-hidden={props.ariaHidden}
+  width={props.width}
+  height={props.height}
+>
+  <path
+    stroke-linecap={props.strokeLinecap}
+    stroke-linejoin={props.strokeLinejoin}
+    d={props.d}></path>
+</svg>
